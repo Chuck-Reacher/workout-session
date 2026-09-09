@@ -302,20 +302,20 @@ const EX = {
   pompes_diamant:{name:'Pompes diamant',note:'Mains jointes sous le sternum, cible triceps.',difficulty:2},
   pompes_archer:{name:'Pompes archer',note:'Un bras tendu sur le côté, prépa au one-arm.',difficulty:3},
   pike_pushup:{name:'Pike push-up',note:'Bassin haut, cible les épaules.',difficulty:2},
-  developpe_halteres:{name:'Développé épaules haltères',note:'Debout ou assis, montée contrôlée.',difficulty:1},
-  arnold_press:{name:'Arnold press haltères',note:'Rotation des paumes en montant.',difficulty:2},
+  developpe_halteres:{name:'Développé épaules haltères',note:'Debout ou assis, montée contrôlée.',difficulty:1,equipment:'dumbbells'},
+  arnold_press:{name:'Arnold press haltères',note:'Rotation des paumes en montant.',difficulty:2,equipment:'dumbbells'},
   dips_chaise:{name:'Dips sur chaise',note:'Talons au sol, descente lente.',difficulty:2},
   tractions_large:{name:'Tractions prise large',note:'Poitrine vers la barre, dos engagé.',difficulty:2},
   tractions_suppination:{name:'Tractions prise supination',note:'Paumes vers toi, plus de biceps.',difficulty:2},
   tractions_negatives:{name:'Tractions négatives',note:'Monte comme tu peux, descends en 3 secondes.',difficulty:3},
-  rowing_halteres:{name:'Rowing haltère penché',note:'Dos plat, tire vers la hanche.',difficulty:1},
-  curl_biceps:{name:'Curl biceps haltères',note:'Coudes fixes le long du corps.',difficulty:1},
+  rowing_halteres:{name:'Rowing haltère penché',note:'Dos plat, tire vers la hanche.',difficulty:1,equipment:'dumbbells'},
+  curl_biceps:{name:'Curl biceps haltères',note:'Coudes fixes le long du corps.',difficulty:1,equipment:'dumbbells'},
   suspension_leg_raise:{name:'Relevés de jambes suspendu',note:'Suspendu à la barre, jambes tendues si possible.',difficulty:2},
   squats:{name:'Squats',note:'Hanches en arrière, talons au sol.',difficulty:1},
-  squats_gobelet:{name:'Squats gobelet (2 haltères)',note:'Haltères contre la poitrine.',difficulty:1},
+  squats_gobelet:{name:'Squats gobelet (2 haltères)',note:'Haltères contre la poitrine.',difficulty:1,equipment:'dumbbells'},
   squats_sautes:{name:'Squats sautés',note:'Réception souple, enchaîne direct.',difficulty:2},
   fentes:{name:'Fentes alternées',note:'Genou arrière frôle le sol.',difficulty:1},
-  fentes_marchees:{name:'Fentes marchées haltères',note:'Un haltère par main, avance à chaque rep.',difficulty:1},
+  fentes_marchees:{name:'Fentes marchées haltères',note:'Un haltère par main, avance à chaque rep.',difficulty:1,equipment:'dumbbells'},
   fentes_sautees:{name:'Fentes sautées',note:'Change de jambe en l\u2019air.',difficulty:2},
   wall_sit:{name:'Wall sit (chaise au mur)',note:'Cuisses parallèles au sol.',difficulty:1},
   gainage_planche:{name:'Gainage planche',note:'Ligne droite tête-talons.',difficulty:1},
@@ -339,46 +339,57 @@ const EX = {
   box_step_up:{name:'Step-up sur chaise',note:'Monte et descends en contrôlant la descente, alterne les jambes.',difficulty:1},
   broad_jump:{name:'Saut en longueur',note:'Saute le plus loin possible, réception souple et silencieuse.',difficulty:2},
   clap_pushup:{name:'Pompes claquées',note:'Pousse fort et explosif, claque les mains en l\u2019air.',difficulty:3},
+  band_row:{name:'Rowing élastique',note:'Fixe l\u2019élastique devant toi, tire vers la taille.',difficulty:1,equipment:'resistance_band'},
+  band_curl:{name:'Curl biceps élastique',note:'Pieds sur l\u2019élastique, coudes fixes le long du corps.',difficulty:1,equipment:'resistance_band'},
+  band_squat:{name:'Squats avec élastique aux genoux',note:'Pousse les genoux vers l\u2019extérieur contre la résistance.',difficulty:1,equipment:'resistance_band'},
+  band_lateral_raise:{name:'Élévations latérales élastique',note:'Debout sur l\u2019élastique, lève les bras sur les côtés.',difficulty:1,equipment:'resistance_band'},
+  jump_rope:{name:'Corde à sauter',note:'Petits bonds, ce sont les poignets qui font tourner la corde.',difficulty:1,equipment:'jump_rope'},
+};
+
+const EQUIPMENT_OPTIONS = {
+  dumbbells:{label:'Haltères'},
+  resistance_band:{label:'Élastique de résistance'},
+  jump_rope:{label:'Corde à sauter'},
 };
 
 const GROUPS = {
-  dos:{label:'Dos & biceps',pool:['tractions_large','tractions_suppination','tractions_negatives','rowing_halteres','curl_biceps','suspension_leg_raise','typewriter_pullup']},
-  epaules:{label:'Épaules & pecs',pool:['pompes','pompes_diamant','pompes_archer','pike_pushup','developpe_halteres','arnold_press','dips_chaise','tuck_planche','clap_pushup']},
-  jambes:{label:'Jambes',pool:['squats','squats_gobelet','squats_sautes','fentes','fentes_marchees','wall_sit','nordic_curl_assist','box_step_up']},
+  dos:{label:'Dos & biceps',pool:['tractions_large','tractions_suppination','tractions_negatives','rowing_halteres','curl_biceps','suspension_leg_raise','typewriter_pullup','band_row','band_curl']},
+  epaules:{label:'Épaules & pecs',pool:['pompes','pompes_diamant','pompes_archer','pike_pushup','developpe_halteres','arnold_press','dips_chaise','tuck_planche','clap_pushup','band_lateral_raise']},
+  jambes:{label:'Jambes',pool:['squats','squats_gobelet','squats_sautes','fentes','fentes_marchees','wall_sit','nordic_curl_assist','box_step_up','band_squat']},
   abdos:{label:'Abdos & gainage',pool:['gainage_planche','gainage_lateral','superman','mountain_climbers','suspension_leg_raise','v_ups','shoulder_taps']},
-  cardio:{label:'Cardio',pool:['burpees','jumping_jacks','mountain_climbers','squats_sautes','fentes_sautees','broad_jump','clap_pushup']},
+  cardio:{label:'Cardio',pool:['burpees','jumping_jacks','mountain_climbers','squats_sautes','fentes_sautees','broad_jump','clap_pushup','jump_rope']},
 };
 
 const PROGRAMS = [
   {id:'fullbody',name:'Full Body Intermédiaire',tagline:'Circuit complet, tout le corps en un tour de piste',
    format:'circuit',duration:'≈ 25 min',rounds:3,work:40,rest:20,restBetweenRounds:60,
-   exercises:['pompes','squats_sautes','tractions_large','fentes','gainage_planche','rowing_halteres','mountain_climbers','dips_chaise']},
+   exercises:['pompes','squats_sautes','tractions_large','fentes','gainage_planche','superman','mountain_climbers','dips_chaise']},
 
   {id:'push',name:'Push — pecs, épaules, triceps',tagline:'Séries classiques, focus poussée',
    format:'classic',duration:'≈ 35 min',restBetweenSets:75,
    exercises:[
      {id:'pompes',sets:4,reps:'12-15'},
-     {id:'developpe_halteres',sets:4,reps:'10-12'},
+     {id:'pike_pushup',sets:4,reps:'10-12'},
      {id:'pompes_diamant',sets:3,reps:'10-12'},
-     {id:'arnold_press',sets:3,reps:'10'},
-     {id:'pike_pushup',sets:3,reps:'8-10'},
+     {id:'dips_chaise',sets:3,reps:'10-12'},
+     {id:'handstand_mur',sets:3,hold:20},
    ]},
 
   {id:'pull',name:'Pull — dos, biceps',tagline:'Séries classiques, focus tirage',
    format:'classic',duration:'≈ 35 min',restBetweenSets:90,
    exercises:[
      {id:'tractions_large',sets:5,reps:'max'},
-     {id:'rowing_halteres',sets:4,reps:'12'},
+     {id:'typewriter_pullup',sets:4,reps:'4/côté'},
      {id:'tractions_suppination',sets:4,reps:'max'},
-     {id:'curl_biceps',sets:3,reps:'12'},
+     {id:'tractions_negatives',sets:3,reps:'5'},
      {id:'suspension_leg_raise',sets:3,reps:'12'},
    ]},
 
   {id:'legs',name:'Jambes & gainage',tagline:'Séries classiques + holds chronométrés',
    format:'classic',duration:'≈ 30 min',restBetweenSets:60,
    exercises:[
-     {id:'squats_gobelet',sets:4,reps:'15'},
-     {id:'fentes_marchees',sets:4,reps:'12/jambe'},
+     {id:'squats',sets:4,reps:'20'},
+     {id:'fentes',sets:4,reps:'15/jambe'},
      {id:'squats_sautes',sets:3,reps:'15'},
      {id:'wall_sit',sets:3,hold:45},
      {id:'gainage_planche',sets:3,hold:45},
@@ -721,17 +732,81 @@ function buildPhases(program){
   return phases;
 }
 
+const QUOTES = [
+  {text:"La douleur que tu ressens aujourd'hui sera la force que tu sentiras demain.", author:"Arnold Schwarzenegger"},
+  {text:"Ce n'est pas la montagne que l'on conquiert, mais soi-même.", author:"Edmund Hillary"},
+  {text:"La discipline, c'est se souvenir de ce que l'on veut vraiment.", author:"David Campbell"},
+  {text:"Le corps atteint ce que l'esprit croit.", author:"Anonyme"},
+  {text:"On ne regrette jamais une séance qu'on a faite.", author:"Anonyme"},
+  {text:"La motivation te lance, l'habitude te fait continuer.", author:"Jim Ryun"},
+  {text:"Chaque expert a un jour été débutant.", author:"Robin Sharma"},
+  {text:"Le seul mauvais entraînement, c'est celui qu'on n'a pas fait.", author:"Anonyme"},
+  {text:"Ta seule limite, c'est toi.", author:"Anonyme"},
+  {text:"La force ne vient pas de ce que tu peux faire, elle vient de surmonter ce que tu croyais impossible.", author:"Rikki Rogers"},
+  {text:"Deviens la meilleure version de toi-même.", author:"Anonyme"},
+  {text:"Le succès, c'est la somme de petits efforts répétés jour après jour.", author:"Robert Collier"},
+  {text:"On ne construit rien de solide sans un peu de sueur.", author:"Anonyme"},
+  {text:"Il n'y a pas d'ascenseur vers le succès, il faut prendre les escaliers.", author:"Zig Ziglar"},
+  {text:"Un peu de progrès chaque jour finit par créer de grands résultats.", author:"Anonyme"},
+  {text:"Le corps peut presque tout, c'est l'esprit qu'il faut convaincre.", author:"Anonyme"},
+  {text:"Douter de soi est le premier pas vers l'échec, alors n'en laisse pas la place.", author:"Anonyme"},
+  {text:"Ce que tu fais aujourd'hui peut améliorer tous tes lendemains.", author:"Ralph Marston"},
+  {text:"L'important n'est pas d'être le meilleur, mais d'être meilleur qu'hier.", author:"Anonyme"},
+  {text:"Les excuses ne construisent pas de muscles.", author:"Anonyme"},
+  {text:"Sois fier de chaque petite victoire.", author:"Anonyme"},
+  {text:"On ne perd jamais, soit on gagne, soit on apprend.", author:"Nelson Mandela"},
+  {text:"Le meilleur moment pour commencer, c'était hier. Le deuxième meilleur, c'est maintenant.", author:"Proverbe chinois"},
+  {text:"Ton corps entend tout ce que ton esprit lui dit. Reste positif.", author:"Anonyme"},
+  {text:"La constance bat le talent quand le talent ne travaille pas.", author:"Anonyme"},
+  {text:"Fais-le pour la version de toi qui te remerciera plus tard.", author:"Anonyme"},
+  {text:"Un objectif sans plan n'est qu'un souhait.", author:"Antoine de Saint-Exupéry"},
+  {text:"La récompense n'est jamais donnée, elle se gagne.", author:"Anonyme"},
+  {text:"Sue maintenant, brille plus tard.", author:"Anonyme"},
+  {text:"Le courage ne rugit pas toujours, parfois c'est la petite voix qui dit : je réessaie demain.", author:"Mary Anne Radmacher"},
+  {text:"Chaque répétition te rapproche de qui tu veux devenir.", author:"Anonyme"},
+  {text:"Ne compte pas les jours, fais que les jours comptent.", author:"Muhammad Ali"},
+  {text:"On ne devient pas fort dans le confort.", author:"Anonyme"},
+  {text:"Le plus dur, c'est de commencer. Après, ça devient une habitude.", author:"Anonyme"},
+  {text:"La souffrance est temporaire, abandonner est définitif.", author:"Lance Armstrong"},
+  {text:"Personne n'a jamais noyé dans sa propre sueur.", author:"Ann Landers"},
+  {text:"Tu es plus fort que l'excuse que tu es en train de te trouver.", author:"Anonyme"},
+  {text:"Le succès commence par la volonté.", author:"Anonyme"},
+  {text:"Rien ne change si rien ne change.", author:"Anonyme"},
+  {text:"Une heure d'effort aujourd'hui, une vie de fierté demain.", author:"Anonyme"},
+  {text:"On ne monte jamais seul en haut de la montagne sans avoir grimpé une à une les marches.", author:"Anonyme"},
+  {text:"La discipline est le pont entre les objectifs et les accomplissements.", author:"Jim Rohn"},
+  {text:"Ce qui ne te tue pas te rend plus fort.", author:"Friedrich Nietzsche"},
+  {text:"Le talent gagne des matchs, le travail d'équipe et l'intelligence gagnent des championnats.", author:"Michael Jordan"},
+  {text:"Aie le courage de suivre ton cœur et ton intuition.", author:"Steve Jobs"},
+  {text:"On ne sait jamais de quoi on est capable tant qu'on n'a pas essayé.", author:"Anonyme"},
+  {text:"Reste patient. Les grandes choses prennent du temps.", author:"Anonyme"},
+  {text:"L'échec n'est que l'occasion de recommencer avec plus d'intelligence.", author:"Henry Ford"},
+  {text:"Ton avenir est créé par ce que tu fais aujourd'hui, pas demain.", author:"Robert Kiyosaki"},
+  {text:"La seule façon de faire du bon travail est d'aimer ce que l'on fait.", author:"Steve Jobs"},
+  {text:"On n'a rien sans rien.", author:"Proverbe"},
+  {text:"Les champions continuent de jouer jusqu'à ce qu'ils réussissent.", author:"Billie Jean King"},
+];
+function randomQuote(){ return QUOTES[Math.floor(Math.random()*QUOTES.length)]; }
+const sessionQuote = randomQuote();
+
 const HOLD_EXERCISES = ['wall_sit','gainage_planche','gainage_lateral','l_sit','hollow_body_hold','handstand_mur','tuck_planche'];
 
-function poolForGroups(groupKeys){
+function equipmentAllows(exId, ownedEquipment){
+  const eq = EX[exId] && EX[exId].equipment;
+  if(!eq) return true; // poids du corps / barre : toujours disponible
+  return ownedEquipment.has(eq);
+}
+function poolForGroups(groupKeys, ownedEquipment){
   const seen = new Set(); const list = [];
-  groupKeys.forEach(k => (GROUPS[k].pool||[]).forEach(id => { if(!seen.has(id)){ seen.add(id); list.push(id); } }));
+  groupKeys.forEach(k => (GROUPS[k].pool||[]).forEach(id => {
+    if(!seen.has(id) && equipmentAllows(id, ownedEquipment)){ seen.add(id); list.push(id); }
+  }));
   return list;
 }
 
 // Picks a variety of exercises spread across the chosen groups (round-robin) up to desiredCount.
-function pickAcrossGroups(groupKeys, desiredCount){
-  const perGroupPools = groupKeys.map(k => GROUPS[k].pool.slice());
+function pickAcrossGroups(groupKeys, desiredCount, ownedEquipment){
+  const perGroupPools = groupKeys.map(k => GROUPS[k].pool.filter(id => equipmentAllows(id, ownedEquipment)));
   const chosen = []; let gi = 0; let guard = 0;
   while(chosen.length < desiredCount && guard < 200){
     const gp = perGroupPools[gi % perGroupPools.length];
@@ -749,13 +824,14 @@ function groupLabelFor(groupKeys){
   return groupKeys.length >= 4 ? 'Full body' : groupKeys.map(k => GROUPS[k].label).join(' + ');
 }
 
-// Builds a program sized to fit the requested time, from the chosen muscle groups.
-function buildCustomProgram(groupKeys, minutes, format){
+// Builds a program sized to fit the requested time, from the chosen muscle groups + équipement possédé.
+function buildCustomProgram(groupKeys, minutes, format, ownedEquipment){
+  ownedEquipment = ownedEquipment || new Set();
   if(!groupKeys.length) groupKeys = Object.keys(GROUPS);
-  const poolSize = poolForGroups(groupKeys).length;
+  const poolSize = poolForGroups(groupKeys, ownedEquipment).length;
   let desiredCount = minutes <= 10 ? 4 : minutes <= 20 ? 5 : minutes <= 35 ? 6 : 8;
   desiredCount = Math.max(3, Math.min(desiredCount, poolSize));
-  const chosen = pickAcrossGroups(groupKeys, desiredCount);
+  const chosen = pickAcrossGroups(groupKeys, desiredCount, ownedEquipment);
   const label = groupLabelFor(groupKeys);
 
   if(format === 'circuit'){
@@ -780,7 +856,7 @@ function renderHome(){
     <div class="header">
       <div class="kicker">Séance à la maison</div>
       <h1>Ta session</h1>
-      <p class="tagline">2 haltères de 5 kg, une barre de traction, et toi. Choisis un parcours ou vise un groupe précis.</p>
+      <p class="tagline">« ${sessionQuote.text} » — <b style="color:var(--chalk);">${sessionQuote.author}</b></p>
     </div>
 
     <div class="stats-card">
@@ -911,11 +987,12 @@ function renderProgramDetail(program){
   `;
 }
 
-/* ---------------- RENDER: BUILDER (groupes + temps disponible) ---------------- */
+/* ---------------- RENDER: BUILDER (groupes + temps + équipement) ---------------- */
 let currentBuilderProgram = null;
 let builderGroups = new Set(Object.keys(GROUPS)); // full body by default
 let builderMinutes = 20;
 let builderFormat = 'circuit';
+let builderEquipment = new Set(); // équipement en plus de la barre + poids du corps
 const TIME_OPTIONS = [10,15,20,30,45,60];
 
 function toggleBuilderGroup(key){
@@ -926,12 +1003,16 @@ function toggleBuilderGroup(key){
   }
   renderBuilder();
 }
+function toggleBuilderEquipment(key){
+  if(builderEquipment.has(key)) builderEquipment.delete(key); else builderEquipment.add(key);
+  renderBuilder();
+}
 function setBuilderMinutes(min){ builderMinutes = min; renderBuilder(); }
 function setBuilderFormat(fmt){ builderFormat = fmt; renderBuilder(); }
 
 function renderBuilder(){
   const groupKeys = Array.from(builderGroups);
-  const preview = buildCustomProgram(groupKeys, builderMinutes, builderFormat);
+  const preview = buildCustomProgram(groupKeys, builderMinutes, builderFormat, builderEquipment);
   currentBuilderProgram = preview;
   const app = document.getElementById('app');
   app.innerHTML = `
@@ -946,6 +1027,14 @@ function renderBuilder(){
     <div class="chip-row">
       ${Object.entries(GROUPS).map(([key,g]) => `
         <div class="chip ${builderGroups.has(key)?'selected':''}" onclick="toggleBuilderGroup('${key}')">${g.label}</div>
+      `).join('')}
+    </div>
+
+    <div class="section-title" style="margin-top:24px;">Équipement en plus de la barre & du poids du corps</div>
+    <p class="builder-hint" style="margin-top:-4px;">Aucune case cochée = séance uniquement barre de traction + poids du corps, comme tous les parcours proposés.</p>
+    <div class="chip-row">
+      ${Object.entries(EQUIPMENT_OPTIONS).map(([key,e]) => `
+        <div class="chip ${builderEquipment.has(key)?'selected':''}" onclick="toggleBuilderEquipment('${key}')">${e.label}</div>
       `).join('')}
     </div>
 
