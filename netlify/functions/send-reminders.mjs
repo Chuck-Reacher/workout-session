@@ -49,4 +49,4 @@ export default async () => {
 };
 
 // Tourne toutes les 15 minutes pour couvrir toutes les heures de rappel possibles.
-export const config = { schedule: "*/15 * * * *" };
+export const config = { schedule: "* * * * *" };
