@@ -449,7 +449,6 @@ let lastEarnedPoints = 0;
 let lastSessionMinutes = 0;
 let lastSessionDifficultyLabel = '';
 let reminderMsg = '';
-let reminderCheckHandle = null;
 
 /* ---------------- PUSH NOTIFICATIONS ---------------- */
 const VAPID_PUBLIC_KEY = 'BKgYkPTt21q9gatsVt1Nd-2pGjsYXrOijgghT-bTmZ8BMZRpHYOwrhYguOV7e1S0cAJtWvQw0oLEQ0QZe_pBkvA';
@@ -662,30 +661,6 @@ async function setReminderTime(val){
   if(profile.remindersEnabled){
     try{ await subscribeToPush(val); }catch(e){}
   }
-}
-function startReminderChecker(){
-  if(reminderCheckHandle) return;
-  reminderCheckHandle = setInterval(()=>{
-    if(!profile || !profile.remindersEnabled) return;
-    const now = new Date();
-    const current = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    const today = todayStr();
-    if(current === profile.reminderTime && profile.lastNotifiedDate !== today){
-      profile.lastNotifiedDate = today;
-      saveProfile(profile);
-      fireReminderNotification();
-    }
-  }, 20000);
-}
-function fireReminderNotification(){
-  const trainedToday = (profile.history||[]).includes(todayStr());
-  if(trainedToday) return;
-  try{
-    if('Notification' in window && Notification.permission === 'granted'){
-      new Notification('Street Session', {body:"C'est l'heure de ta séance 💪"});
-    }
-  }catch(e){}
-  vibrate([200,100,200]);
 }
 
 /* ---------------- PHASE BUILDER ---------------- */
@@ -1337,7 +1312,6 @@ function renderComplete(){
 (async function init(){
   profile = await loadProfile();
   renderHome();
-  startReminderChecker();
 })();
 
 if('serviceWorker' in navigator){
