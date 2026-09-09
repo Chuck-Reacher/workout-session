@@ -6,7 +6,7 @@
 <title>Workout Session</title>
 
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0a1a17">
+<meta name="theme-color" content="#0a121f">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,12 +17,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a1a17;
-    --surface:#0f2521;
-    --surface-2:#143530;
-    --line:#1f4a41;
-    --chalk:#eaf5f2;
-    --chalk-dim:#84a89e;
+    --bg:#0a121f;
+    --surface:#0f2620;
+    --surface-2:#153a30;
+    --line:#1e4a3d;
+    --chalk:#eaf3f0;
+    --chalk-dim:#7fa89c;
     --accent:#2de0c7;
     --accent-ink:#06231f;
     --danger:#ff5a45;
@@ -36,11 +36,6 @@
     font-family:'Inter',sans-serif;
     min-height:100vh;
     -webkit-tap-highlight-color:transparent;
-  }
-  .hazard{
-    height:7px;
-    width:100%;
-    background:repeating-linear-gradient(135deg, var(--accent) 0 14px, var(--bg) 14px 28px);
   }
   #app{
     max-width:560px;
@@ -93,8 +88,8 @@
     border:1px solid var(--line);
     margin-bottom:6px;
   }
-  .tag.circuit{color:var(--accent);border-color:#4a5522;}
-  .tag.classic{color:#9cc7ff;border-color:#26364a;}
+  .tag.circuit{color:var(--accent);border-color:var(--line);}
+  .tag.classic{color:var(--chalk-dim);border-color:var(--line);}
   .duration{font-size:0.78rem;color:var(--chalk-dim);}
 
   .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
@@ -149,7 +144,7 @@
   .format-toggle .chip{flex:1;}
   .format-toggle .chip.active{border-color:var(--accent);color:var(--accent);}
 
-  .chip.selected{border-color:var(--accent);color:var(--accent);background:#232a12;}
+  .chip.selected{border-color:var(--accent);color:var(--accent);background:var(--surface-2);}
   .time-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px;}
   .time-chip-row .chip{flex:1 1 calc(33.333% - 6px);padding:10px 8px;}
 
@@ -178,7 +173,7 @@
     font-size:0.95rem;font-weight:700;margin-bottom:6px;
   }
   .phase-label.work{color:var(--accent);}
-  .phase-label.rest{color:#9cc7ff;}
+  .phase-label.rest{color:var(--chalk-dim);}
   .phase-label.ready{color:var(--chalk-dim);}
   .phase-label.manual{color:var(--accent);}
 
@@ -298,7 +293,6 @@
 </style>
 </head>
 <body>
-<div class="hazard"></div>
 <div id="app"></div>
 
 <script>
