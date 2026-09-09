@@ -279,7 +279,7 @@
     content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
     background:var(--chalk-dim);transition:transform .15s ease, background .15s ease;
   }
-  .switch.on{background:#0f172a;border-color:var(--accent);}
+  .switch.on{background:#3a4318;border-color:var(--accent);}
   .switch.on::after{transform:translateX(20px);background:var(--accent);}
   .time-input{
     margin-top:10px;width:100%;background:var(--surface);border:1px solid var(--line);
@@ -623,6 +623,27 @@ function weekDots(){
   return days;
 }
 
+async function testPushNotification(){
+  reminderMsg = 'Envoi du test...';
+  renderHome();
+  try{
+    const res = await fetch('/.netlify/functions/test-push', { method:'POST' });
+    const data = await res.json();
+    if(data.ok){
+      reminderMsg = "Test envoyé — regarde tes notifications (ça peut prendre quelques secondes).";
+    } else if(data.error){
+      reminderMsg = "Échec : " + data.error;
+    } else if(data.results && data.results[0]){
+      const r = data.results[0];
+      reminderMsg = "Échec (code " + r.statusCode + ") : " + (r.message || "erreur inconnue");
+    } else {
+      reminderMsg = "Échec du test, réponse inattendue du serveur.";
+    }
+  }catch(e){
+    reminderMsg = "Impossible de contacter la fonction de test (vérifie que le site est bien déployé).";
+  }
+  renderHome();
+}
 async function toggleReminders(){
   reminderMsg = '';
   if(!profile.remindersEnabled){
@@ -854,11 +875,12 @@ function renderHome(){
       <div class="reminder-row">
         <div>
           <div style="font-weight:700;">Notification pour t'entraîner</div>
-          <div class="dim" style="font-size:0.8rem;margin-top:2px;">Marche tant que cette page reste ouverte dans un onglet.</div>
+          <div class="dim" style="font-size:0.8rem;margin-top:2px;">Notification envoyée même appli fermée.</div>
         </div>
         <button class="switch ${profile.remindersEnabled?'on':''}" onclick="toggleReminders()"></button>
       </div>
       ${profile.remindersEnabled ? `<input type="time" class="time-input" value="${profile.reminderTime}" onchange="setReminderTime(this.value)">` : ''}
+      ${profile.remindersEnabled ? `<button class="btn btn-ghost" style="margin-top:10px;" onclick="testPushNotification()">Envoyer une notification de test</button>` : ''}
       ${reminderMsg ? `<p class="dim" style="font-size:0.8rem;margin-top:10px;">${reminderMsg}</p>` : ''}
     </div>
 
