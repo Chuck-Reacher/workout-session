@@ -1,21 +1,29 @@
 import { getStore } from "@netlify/blobs";
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, x-app-secret",
+};
+
+
 export default async (req) => {
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS_HEADERS });
   if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
+    return new Response("Method not allowed", { status: 405, headers: CORS_HEADERS });
   }
   let body;
   try {
     body = await req.json();
   } catch (e) {
-    return new Response("Invalid JSON", { status: 400 });
+    return new Response("Invalid JSON", { status: 400, headers: CORS_HEADERS });
   }
   const { endpoint } = body || {};
-  if (!endpoint) return new Response("Missing endpoint", { status: 400 });
+  if (!endpoint) return new Response("Missing endpoint", { status: 400, headers: CORS_HEADERS });
   const store = getStore("push-subscriptions");
   const key = Buffer.from(endpoint).toString("base64url").slice(0, 200);
   await store.delete(key);
   return new Response(JSON.stringify({ ok: true }), {
-    headers: { "content-type": "application/json" }
+    headers: { "content-type": "application/json", ...CORS_HEADERS }
   });
 };

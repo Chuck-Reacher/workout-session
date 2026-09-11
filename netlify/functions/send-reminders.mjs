@@ -32,7 +32,8 @@ export default async () => {
         JSON.stringify({
           title: "Workout Session",
           body: "Tu n'as pas encore fait ta séance aujourd'hui 💪"
-        })
+        }),
+        { urgency: 'high', TTL: 60 }
       );
       sent++;
     } catch (err) {
